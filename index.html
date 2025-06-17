@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planta Fotovoltaica PASIP</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      color: #111111;
+      background: url('Parque-Solar-Pasip.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    nav a.active {
+      border-bottom: 2px solid #00c48c;
+    }
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: rgba(0, 0, 0, 0.116);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgb(0, 51, 255);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #f0f0f0;
+      text-align: center;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    form button {
+      background-color: #007b5e;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    form button:hover {
+      background-color: #005e45;
+    }
+    .suggestions-list {
+      list-style: none;
+      padding: 0;
+    }
+    .suggestions-list li {
+      background: #e6f7f1;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .suggestions-list li strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #007b5e;
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 0;
+    }
+    .suggestions-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1rem;
+    }
+    .suggestions-carousel li {
+      flex: 0 0 100%;
+      background: #00000069;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      min-width: 100%;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #007b5e;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .carousel-btn.left {
+      left: 0;
+    }
+    .carousel-btn.right {
+      right: 0;
+    }
+    .carousel-btn:hover {
+      background-color: #005e45;
+    }
+    .sugerencia-bloque {
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+    .sugerencia-bloque::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sugerencia-bloque::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Planta Fotovoltaica PASIP</h1>
+  <nav>
+    <a href="#" class="tab-link active" data-tab="info">Información</a>
+    <a href="#" class="tab-link" data-tab="form">Enviar Sugerencia</a>
+    <a href="#" class="tab-link" data-tab="suggestions">Ver Sugerencias</a>
+  </nav>
+</header>
+<section id="info" class="tab-content active">
+  <h2>Información General</h2>
+  <p>La Planta Fotovoltaica PASIP es una instalación moderna dedicada a la generación de energía eléctrica mediante el aprovechamiento de la radiación solar...</p>
+  <h3>Ubicación</h3>
+  <p>Parque Solar PASIP, Mendoza, Argentina</p>
+</section>
+<section id="form" class="tab-content">
+  <h2>Envíanos tu sugerencia</h2>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfN45G50dzZ2WViE6opoAfUf_eWcNywKzvu8rEe1-tlY9omPg/viewform?embedded=true"
+    width="100%" height="900" style="border:none; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1);"></iframe>
+</section>
+<section id="suggestions" class="tab-content">
+  <h2>Sugerencias Recibidas</h2>
+  <ul class="suggestions-carousel" id="suggestionsCarousel">
+    <li><strong>Ejemplo</strong> — Muy buen trabajo.</li>
+  </ul>
+</section>
+<script>
+  const carousel = document.getElementById('suggestionsCarousel');
+  function moveSlide(direction) {
+    const slideWidth = carousel.clientWidth;
+    carousel.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+  }
+  const links = document.querySelectorAll('.tab-link');
+  const tabs = document.querySelectorAll('.tab-content');
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const tabToShow = link.getAttribute('data-tab');
+      tabs.forEach(tab => tab.classList.toggle('active', tab.id === tabToShow));
+    });
+  });
+</script>
+</body>
+</html>
